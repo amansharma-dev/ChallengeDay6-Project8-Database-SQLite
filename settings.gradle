@@ -1,0 +1,2 @@
+rootProject.name='ChallengeDay6-Project8-Database-SQLite'
+include ':app'

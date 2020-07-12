@@ -12,6 +12,9 @@ import com.example.challengeday6_project8_database_sqlite.R;
 import com.example.challengeday6_project8_database_sqlite.model.Contact;
 import com.example.challengeday6_project8_database_sqlite.util.Util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHandler extends SQLiteOpenHelper {
 
 
@@ -45,7 +48,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    //add item/contact
+    //CRUD:: create/add item/contact
     public void addContact(Contact contact){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -59,7 +62,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         sqLiteDatabase.close();
     }
 
-    //read  single item/contact
+    //CRUD:: read  single item/contact
 
     public Contact readContact(int id){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
@@ -80,5 +83,29 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             contact.setContactNumber(cursor.getString(2));
 
             return contact;
+    }
+
+    // CRUD:: read all items/contact
+
+    public List<Contact> readAllContacts(){
+
+        List<Contact> contactList = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        String SELECT_ALL = " SELECT * FROM "+Util.DB_TABLE_NAME;
+        Cursor cursor = sqLiteDatabase.rawQuery(SELECT_ALL,null);
+
+        //loop through our data
+        if(cursor.moveToFirst()){
+            do {
+                Contact contact= new Contact();
+                contact.setId(Integer.parseInt(cursor.getString(0)));
+                contact.setName(cursor.getString(1));
+                contact.setContactNumber(cursor.getString(2));
+
+                //add contact object to our list
+                contactList.add(contact);
+            }while (cursor.moveToNext());
+        }
+        return contactList;
     }
 }

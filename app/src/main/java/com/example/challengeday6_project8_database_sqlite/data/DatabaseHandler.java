@@ -62,8 +62,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         sqLiteDatabase.close();
     }
 
-    //CRUD:: read  single item/contact
 
+    //CRUD:: read  single item/contact
     public Contact readContact(int id){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.query(Util.DB_TABLE_NAME,
@@ -85,8 +85,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return contact;
     }
 
-    // CRUD:: read all items/contact
 
+    // CRUD:: read all items/contact
     public List<Contact> readAllContacts(){
 
         List<Contact> contactList = new ArrayList<>();
@@ -108,4 +108,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         return contactList;
     }
+
+
+    //CRUD:: update item/contact
+    public int updateContact(Contact contact){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Util.KEY_NAME,contact.getName());
+        contentValues.put(Util.KEY_CONTACT_NUMBER,contact.getContactNumber());
+
+
+        return sqLiteDatabase.update(Util.DB_TABLE_NAME,contentValues,
+                Util.KEY_ID+"=?",new String[]{String.valueOf(contact.getId())});
+
+    }
+
+
 }

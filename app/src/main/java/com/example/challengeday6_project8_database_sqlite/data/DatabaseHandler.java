@@ -124,4 +124,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
+    //CRUD:: delete single item/contact
+    public void deleteContact(Contact contact){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.delete(Util.DB_TABLE_NAME,Util.KEY_ID+"=?",new String[]{String.valueOf(contact.getId())});
+
+        //close db table
+        sqLiteDatabase.close();
+    }
+
+    //CRUD:: get count
+    public int getCount(){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        String COUNT_QUERY = "SELECT * FROM "+Util.DB_TABLE_NAME;
+        Cursor cursor = sqLiteDatabase.rawQuery(COUNT_QUERY,null);
+        return cursor.getCount();
+    }
+
 }

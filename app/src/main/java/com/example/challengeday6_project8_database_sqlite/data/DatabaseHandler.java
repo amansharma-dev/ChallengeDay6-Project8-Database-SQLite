@@ -113,13 +113,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //CRUD:: update item/contact
     public int updateContact(Contact contact){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
         ContentValues contentValues = new ContentValues();
         contentValues.put(Util.KEY_NAME,contact.getName());
         contentValues.put(Util.KEY_CONTACT_NUMBER,contact.getContactNumber());
 
 
         return sqLiteDatabase.update(Util.DB_TABLE_NAME,contentValues,
-                Util.KEY_ID+"=?",new String[]{String.valueOf(contact.getId())});
+                Util.KEY_ID + "=?",
+                new String[]{String.valueOf(contact.getId())});
 
     }
 

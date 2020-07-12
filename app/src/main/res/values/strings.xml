@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ChallengeDay6-Project8-Database-SQLite</string>
+    <string name="drop_table">DROP TABLE IF EXISTS</string>
 </resources>
